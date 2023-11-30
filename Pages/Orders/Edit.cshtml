@@ -1,0 +1,71 @@
+@page "{id}"
+@model sql_web_app.Models.Orders.OrderEditModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+<div class="container-fluid">
+    <div class="col-6 mx-auto">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Изменить параметры заказа</h3>
+            </div>
+            <form method="post">
+
+            <!-- card-body /. -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Заказчик</label>
+                        <select required class="custom-select" name="client_id">
+                            <option selected disabled hidden value="">Выберете заказчика</option>
+                            @foreach (int idx in Model.Clients.Keys)
+                            {
+                                @if (idx.ToString().Equals(Model.Atributes[0]))
+                                {
+                                    <option selected value="@idx">@Model.Clients[idx]</option>
+                                }
+                                else 
+                                {
+                                    <option value="@idx">@Model.Clients[idx]</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Тариф</label>
+                        <select required class="custom-select" name="tariff_id">
+                            <option selected disabled hidden value="">Выберете тариф</option>
+                            @foreach (int idx in Model.Tariffs.Keys)
+                            {
+                                @if (idx.ToString().Equals(Model.Atributes[1]))
+                                {
+                                    <option selected value="@idx">@Model.Tariffs[idx]</option>
+                                }
+                                else 
+                                {
+                                    <option value="@idx">@Model.Tariffs[idx]</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateTime">Дата и время</label>
+                        <input required type="datetime-local" name="dateTime" class="form-control" id="dateTime" value="@Model.Atributes[2]">
+                    </div>
+                    <div id="errorBlock"></div>
+                </div>
+            <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" asp-page-handler="Accept" class="btn btn-primary">Принять</button>
+                </div>
+            </form>
+            <form method="post">
+                <div class="card-footer">
+                    <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Удалить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

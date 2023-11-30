@@ -1,0 +1,75 @@
+@page "{id}"
+@model sql_web_app.Models.Storages.StorageEditModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+<div class="container-fluid">
+    <div class="col-6 mx-auto">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Изменить параметры хранилища</h3>
+            </div>
+            <form method="post">
+
+            <!-- card-body /. -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Пользователь</label>
+                        <select required class="custom-select" name="client_id">
+                            <option selected disabled hidden value="">Выберете пользователя</option>
+                            @foreach (int idx in Model.Clients.Keys)
+                            {
+                                @if (idx.ToString().Equals(Model.Atributes[0]))
+                                {
+                                    <option selected value="@idx">@Model.Clients[idx]</option>
+                                }
+                                else 
+                                {
+                                    <option value="@idx">@Model.Clients[idx]</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="memory">Размер хранилища</label>
+                        <input required type="number" name="memory" class="form-control" id="memory" placeholder="Введите размер хранилища" value="@Model.Atributes[1]">
+                    </div>
+                    <div class="form-group">
+                        <label>Местоположение сервера</label>
+                        <select required class="custom-select" name="server_id">
+                            <option selected disabled hidden value="">Выберете сервер</option>
+                            @foreach (int idx in Model.Locations.Keys)
+                            {
+                                @if (idx.ToString().Equals(Model.Atributes[2]))
+                                {
+                                    <option selected value="@idx">@Model.Locations[idx]</option>
+                                }
+                                else 
+                                {
+                                    <option value="@idx">@Model.Locations[idx]</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDatetime">Дата и время окончания действия</label>
+                        <input required type="datetime-local" name="endDatetime" class="form-control" id="endDatetime" value="@Model.Atributes[3]">
+                    </div>
+                    <div id="errorBlock"></div>
+                </div>
+            <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" asp-page-handler="Accept" class="btn btn-primary">Принять</button>
+                </div>
+            </form>
+            <form method="post">
+                <div class="card-footer">
+                    <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Удалить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "dgSpecHash": "8QJ4atKFutGhOkvHMqZyDZ296ADUe4EWZbvEJxBnDyUS1W8saShYUBLCI4O66ml9IUJBO3vZjsuzq420Mq2itA==",
+  "success": true,
+  "projectFilePath": "/home/whatislove/main/projects/dotnet/sql_web_app/sql_web_app.csproj",
+  "expectedPackageFiles": [
+    "/home/whatislove/.nuget/packages/bcrypt/1.0.0/bcrypt.1.0.0.nupkg.sha512",
+    "/home/whatislove/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.1/microsoft.extensions.logging.abstractions.7.0.1.nupkg.sha512",
+    "/home/whatislove/.nuget/packages/mysqlconnector/2.3.1/mysqlconnector.2.3.1.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'BCrypt 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "BCrypt",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
+}

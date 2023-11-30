@@ -1,0 +1,53 @@
+@page
+@model sql_web_app.Models.Orders.OrderCreateModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+<form method="post">
+	<div class="container-fluid">
+        <div class="col-6 mx-auto">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Добавить новый заказ</h3>
+                </div>
+
+            <!-- card-body /. -->
+                <div class="card-body">
+                <!-- select -->
+                    <div class="form-group">
+                        <label>Заказчик</label>
+                        <select required class="custom-select" name="client_id">
+                            <option selected disabled hidden value="">Выберете заказчика</option>
+                            @foreach (int idx in Model.Clients.Keys)
+                            {
+                                <option value="@idx">@Model.Clients[idx]</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Тариф</label>
+                        <select required class="custom-select" name="tariff_id">
+                            <option selected disabled hidden value="">Выберете тариф</option>
+                            @foreach (int idx in Model.Tariffs.Keys)
+                            {
+                                <option value="@idx">@Model.Tariffs[idx]</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateTime">Дата и время</label>
+                        <input required type="datetime-local" name="dateTime" class="form-control" id="dateTime">
+                    </div>
+                    <div id="errorBlock"></div>
+                </div>
+            <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

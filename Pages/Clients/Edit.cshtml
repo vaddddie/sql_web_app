@@ -1,0 +1,62 @@
+@page "{id}"
+@model sql_web_app.Models.Clients.ClientEditModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+
+<div class="container-fluid">
+    <div class="col-6 mx-auto">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Изменить параметры клиента</h3>
+            </div>
+            <form method="post">
+
+        <!-- card-body /. -->
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="email">Почта</label>
+                    <input required type="email" name="email" class="form-control" id="email" placeholder="Введите почту" value="@Model.Atributes[0]">
+                </div>
+                <div class="form-group">
+                    <label for="fullname">Полное имя</label>
+                    <input required type="text" name="fullname" class="form-control" id="fullname" placeholder="Введите полное имя" value="@Model.Atributes[1]">
+                </div>
+                <div class="form-group">
+                    <label for="password">Новый пароль</label>
+                    <input type="text" name="password" class="form-control" id="password" placeholder="Оставить старый пароль">
+                </div>
+                <div id="errorBlock"></div>
+                <div class="form-group">
+                    <label>Местоположение</label>
+                    <select required class="custom-select" name="location_id">
+                        @foreach (int idx in Model.Locations.Keys)
+                        {
+                            @if (idx.ToString().Equals(Model.Atributes[2]))
+                            {
+                                <option selected value="@idx">@Model.Locations[idx]</option>
+                            }
+                            else 
+                            {
+                                <option value="@idx">@Model.Locations[idx]</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        <!-- /.card-body -->
+            
+            <div class="card-footer">
+                <button type="submit" asp-page-handler="Accept" class="btn btn-primary">Принять</button>
+            </div>
+            </form>
+            <form method="post">
+                <div class="card-footer">
+                    <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Удалить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

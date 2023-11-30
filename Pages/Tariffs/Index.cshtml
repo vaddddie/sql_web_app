@@ -1,0 +1,47 @@
+@page
+@model sql_web_app.Models.Tariffs.TariffModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "Покупки";
+}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+	    	<div class="card">
+	    		<div class="card-header">
+	    			<div class="d-flex align-items-center justify-content-between">
+	          	        <h3 class="card-title">Тарифы</h3>
+                        <a href="/Tariffs/Create" class="btn btn-block btn-outline-primary col-1">Добавить</a>
+    				</div>
+                </div>
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Номер</th>
+                            <th>Выделенная память</th>
+                            <th>Цена в месяц</th>
+                            <th>Редактировать</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (string[] item in Model.Rows)
+                            {
+                                <tr>
+                                <td>@item[0]</td>
+                                <td>@item[1] Гб</td>
+                                <td>@item[2] $</td>
+                                <td>
+                                    <a href="/Tariffs/Edit/@item[0]"><i class="fas fa-edit"></i></a>
+                                    <!--<button type="button" class="btn btn-block btn-default"><i class="fas fa-edit"></i></button>-->
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+	    	</div>
+	    </div>
+	</div>
+</div>

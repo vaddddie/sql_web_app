@@ -1,0 +1,36 @@
+@page
+@model sql_web_app.Models.Tariffs.TariffCreateModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+<form method="post">
+	<div class="container-fluid">
+        <div class="col-6 mx-auto">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Добавить новый тариф</h3>
+                </div>
+
+            <!-- card-body /. -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="memory">Выделяемая память</label>
+                        <input required type="number" name="memory" class="form-control" id="memory">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Цена в месяц</label>
+                        <input required type="number" step="0.01" name="price" class="form-control" id="price">
+                    </div>
+                    <div id="errorBlock"></div>
+                </div>
+            <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

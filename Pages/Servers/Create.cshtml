@@ -1,0 +1,47 @@
+@page
+@model sql_web_app.Models.Servers.ServerCreateModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+<form method="post">
+	<div class="container-fluid">
+        <div class="col-6 mx-auto">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Добавить новый сервер</h3>
+                </div>
+
+            <!-- card-body /. -->
+                <div class="card-body">
+                <!-- select -->
+                    <div class="form-group">
+                        <label for="location">Местоположение</label>
+                        <input required type="text" name="location" class="form-control" id="location" placeholder="Введите местоположение">
+                    </div>
+                    <div class="form-group">
+                        <label for="memory">Размер хранилища</label>
+                        <input required type="number" name="memory" class="form-control" id="memory" placeholder="Введите размер хранилища">
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" id="Radio1" name="status" value="0" checked>
+                            <label for="Radio1" class="custom-control-label">Онлайн</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" id="Radio2" name="status" value="1">
+                            <label for="Radio2" class="custom-control-label">Офлайн</label>
+                        </div>
+                    </div>
+                    <div id="errorBlock"></div>
+                </div>
+            <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

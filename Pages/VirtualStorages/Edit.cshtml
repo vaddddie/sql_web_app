@@ -1,0 +1,36 @@
+@page "{id}"
+@model sql_web_app.Models.VirtualStorages.VirtualStorageEditModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+<form method="post">
+	<div class="container-fluid">
+        <div class="col-6 mx-auto">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Изменить</h3>
+                </div>
+
+            <!-- card-body /. -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="username">FTP имя</label>
+                        <input required type="text" name="username" class="form-control" id="username" placeholder="Введите FTP имя" value="@Model.atributes[0]">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">FTP пароль</label>
+                        <input required type="text" name="password" class="form-control" id="password" placeholder="Введите FTP пароль" value="@Model.atributes[1]">
+                    </div>
+                    <div id="errorBlock"></div>
+                </div>
+            <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" asp-page-handler="Accept" class="btn btn-primary">Принять</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
