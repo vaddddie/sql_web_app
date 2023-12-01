@@ -8817,6 +8817,18 @@
       "PackagePath": "staticwebassets/fontawesome/webfonts/fa-v4compatibility.woff2"
     },
     {
+      "Id": "/home/whatislove/main/projects/dotnet/sql_web_app/wwwroot/img/img1.png",
+      "PackagePath": "staticwebassets/img/img1.png"
+    },
+    {
+      "Id": "/home/whatislove/main/projects/dotnet/sql_web_app/wwwroot/img/img2.png",
+      "PackagePath": "staticwebassets/img/img2.png"
+    },
+    {
+      "Id": "/home/whatislove/main/projects/dotnet/sql_web_app/wwwroot/img/img3.png",
+      "PackagePath": "staticwebassets/img/img3.png"
+    },
+    {
       "Id": "/home/whatislove/main/projects/dotnet/sql_web_app/wwwroot/js/app.js",
       "PackagePath": "staticwebassets/js/app.js"
     },

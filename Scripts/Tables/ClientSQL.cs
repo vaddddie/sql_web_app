@@ -149,4 +149,26 @@ public static class ClientSQL
 
         return locations;
     }
+
+    public static int Count()
+    {
+        int count = 0;
+
+        var connection = DB_connector.GetConnection();
+
+        string tmp_comm = "SELECT COUNT(*) AS `count` FROM `Client`;";
+        var command = new MySqlCommand(tmp_comm, connection);
+
+        connection?.Open();
+
+        using var reader = command.ExecuteReader();
+        if (reader.Read())
+        {
+            count = reader.GetInt32(0);
+        }
+
+        connection?.Close(); 
+
+        return count;
+    }
 }
