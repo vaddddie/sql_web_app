@@ -1,0 +1,62 @@
+@page "{id}"
+@model sql_web_app.Models.Employees.EmployeeEditModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+
+<div class="container-fluid">
+    <div class="col-6 mx-auto">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Изменить параметры сотрудника</h3>
+            </div>
+            <form method="post">
+
+        <!-- card-body /. -->
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Должность</label>
+                    <select required class="custom-select" name="jobTitle_id">
+                        @foreach (int idx in Model.JobTitles.Keys)
+                        {
+                            @if (idx.ToString().Equals(Model.Atributes[0]))
+                            {
+                                <option selected value="@idx">@Model.JobTitles[idx]</option>
+                            }
+                            else 
+                            {
+                                <option value="@idx">@Model.JobTitles[idx]</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">Почта</label>
+                    <input required type="email" name="email" class="form-control" id="email" placeholder="Введите почту" value="@Model.Atributes[1]">
+                </div>
+                <div class="form-group">
+                    <label for="fullname">Полное имя</label>
+                    <input required type="text" name="fullname" class="form-control" id="fullname" placeholder="Введите полное имя" value="@Model.Atributes[2]">
+                </div>
+                <div class="form-group">
+                    <label for="password">Новый пароль</label>
+                    <input type="text" name="password" class="form-control" id="password" placeholder="Оставить старый пароль">
+                </div>
+                <div id="errorBlock"></div>
+            </div>
+        <!-- /.card-body -->
+            
+            <div class="card-footer">
+                <button type="submit" asp-page-handler="Accept" class="btn btn-primary">Принять</button>
+            </div>
+            </form>
+            <form method="post">
+                <div class="card-footer">
+                    <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Удалить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

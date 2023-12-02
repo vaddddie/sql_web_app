@@ -4,7 +4,7 @@ using sql_web_app.Scripts;
 
 namespace sql_web_app.Scripts.Tables;
 
-public static class ClientSQL
+public static class EmployeeSQL
 {
     public static List<string[]> List()
     {
@@ -13,9 +13,9 @@ public static class ClientSQL
         var connection = DB_connector.GetConnection();
 
         string tmp_comm = 
-        "SELECT Client_id, Email, Full_name, Password, s.Location " + 
-        "FROM Client AS c, Server AS s " +
-        "WHERE c.Location = Server_id;";
+        "SELECT Employee_id, j.Title, Email, Full_name, Password " + 
+        "FROM Employee AS e, Job_title AS j " +
+        "WHERE e.Job_title_id = j.Job_title_id;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();
@@ -39,13 +39,13 @@ public static class ClientSQL
         return Rows;
     }
 
-    public static void Create(string email, string fullname, string password, int location)
+    public static void Create(int JobTitle_id, string email, string fullname, string password)
     {
         var connection = DB_connector.GetConnection();
 
         String tmp_comm = 
-            "INSERT Client (`Email`, `Full_name`, `Password`, `Location`) " +
-            "VALUES ('" + email + "', '" + fullname + "', '" + password + "', '" + location + "');";
+            "INSERT `Employee` (`Job_title_id`, `Email`, `Full_name`, `Password`) " +
+            "VALUES ('" + JobTitle_id + "', '" + email + "', '" + fullname + "', '" + password + "');";
 
         var command = new MySqlCommand(tmp_comm, connection);
 
@@ -54,17 +54,17 @@ public static class ClientSQL
         connection?.Close(); 
     }
 
-    public static void Update(int id, string email, string fullname, string password, int location)
+    public static void Update(int id, int JobTitle_id, string email, string fullname, string password)
     {
         var connection = DB_connector.GetConnection();
 
         String tmp_comm = 
-            "UPDATE `Client` SET " +
+            "UPDATE `Employee` SET " +
+            "`Job_title_id` = '" + JobTitle_id + "', " +
             "`Email` = '" + email + "', " +
             "`Full_name` = '" + fullname + "', " +
-            "`Password` = '" + password + "', " +
-            "`Location` = '" + location + "' " +
-            "WHERE (`Client_id` = '" + id + "');";
+            "`Password` = '" + password + "' " +
+            "WHERE (`Employee_id` = '" + id + "');";
 
         var command = new MySqlCommand(tmp_comm, connection);
 
@@ -73,16 +73,16 @@ public static class ClientSQL
         connection?.Close(); 
     }
 
-    public static void UpdateWithoutPassword(int id, string email, string fullname, int location)
+    public static void UpdateWithoutPassword(int id, int JobTitle_id, string email, string fullname)
     {
         var connection = DB_connector.GetConnection();
 
         String tmp_comm = 
-            "UPDATE `Client` SET " +
+            "UPDATE `Employee` SET " +
+            "`Job_title_id` = '" + JobTitle_id + "', " +
             "`Email` = '" + email + "', " +
-            "`Full_name` = '" + fullname + "', " +
-            "`Location` = '" + location + "' " +
-            "WHERE (`Client_id` = '" + id + "');";
+            "`Full_name` = '" + fullname + "' " +
+            "WHERE (`Employee_id` = '" + id + "');";
 
         var command = new MySqlCommand(tmp_comm, connection);
 
@@ -95,7 +95,7 @@ public static class ClientSQL
     {
         var connection = DB_connector.GetConnection();
 
-        String tmp_comm = "DELETE FROM `Client` WHERE `Client_id` = '" + id + "';";
+        String tmp_comm = "DELETE FROM `Employee` WHERE `Employee_id` = '" + id + "';";
 
         var command = new MySqlCommand(tmp_comm, connection);
 
@@ -110,7 +110,7 @@ public static class ClientSQL
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT Email, Full_name, Location FROM Client WHERE Client_id = " + id + " limit 1;";
+        string tmp_comm = "SELECT `Job_title_id`, `Email`, `Full_name` FROM `Employee` WHERE `Employee_id` = '" + id + "' limit 1;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();
@@ -118,9 +118,9 @@ public static class ClientSQL
         using var reader = command.ExecuteReader();
         if (reader.Read())
         {
-            atributes[0] = reader.GetString(0);
+            atributes[0] = reader.GetInt32(0).ToString();
             atributes[1] = reader.GetString(1);
-            atributes[2] = reader.GetInt32(2).ToString();
+            atributes[2] = reader.GetString(2);
         }
 
         connection?.Close(); 
@@ -128,13 +128,13 @@ public static class ClientSQL
         return atributes;
     }
 
-    public static Dictionary<int, string> GetLocations()
+    public static Dictionary<int, string> GetJobTitles()
     {
-        Dictionary<int, string> locations = new();
+        Dictionary<int, string> jobTitles = new();
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT Server_id, Location FROM Server;";
+        string tmp_comm = "SELECT `Job_title_id`, `Title` FROM `Job_title`;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();
@@ -142,33 +142,11 @@ public static class ClientSQL
         using var reader = command.ExecuteReader();
         while (reader.Read())
         {
-            locations.Add(reader.GetInt32(0), reader.GetString(1));
+            jobTitles.Add(reader.GetInt32(0), reader.GetString(1));
         }
 
         connection?.Close(); 
 
-        return locations;
-    }
-
-    public static int Count()
-    {
-        int count = 0;
-
-        var connection = DB_connector.GetConnection();
-
-        string tmp_comm = "SELECT COUNT(*) AS `count` FROM `Client`;";
-        var command = new MySqlCommand(tmp_comm, connection);
-
-        connection?.Open();
-
-        using var reader = command.ExecuteReader();
-        if (reader.Read())
-        {
-            count = reader.GetInt32(0);
-        }
-
-        connection?.Close(); 
-
-        return count;
+        return jobTitles;
     }
 }
