@@ -20,9 +20,9 @@ public class EmployeeCreateModel : PageModel
         JobTitles = EmployeeSQL.GetJobTitles();
     }
 
-    public RedirectResult OnPost(int jobTitle_id, string email, string fullname, string password)
+    public RedirectResult OnPost(int jobTitle_id, string email, string fullname, string password, int rate)
     {
-        EmployeeSQL.Create(jobTitle_id, email, fullname, HashClass.Hash(password));
+        EmployeeSQL.Create(jobTitle_id, email, fullname, HashClass.Hash(password), rate);
         return Redirect("/Employees");
     }
 }

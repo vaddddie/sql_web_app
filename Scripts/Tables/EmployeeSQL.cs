@@ -13,9 +13,9 @@ public static class EmployeeSQL
         var connection = DB_connector.GetConnection();
 
         string tmp_comm = 
-        "SELECT Employee_id, j.Title, Email, Full_name, Password " + 
-        "FROM Employee AS e, Job_title AS j " +
-        "WHERE e.Job_title_id = j.Job_title_id;";
+        "SELECT `Employee_id`, j.`Title`, `Email`, `Full_name`, `Password`, `Rate` " + 
+        "FROM `Employee` AS e, `Job_title` AS j " +
+        "WHERE e.`Job_title_id` = j.`Job_title_id`;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();
@@ -28,7 +28,8 @@ public static class EmployeeSQL
                 reader.GetString(1),
                 reader.GetString(2),
                 reader.GetString(3),
-                reader.GetString(4)
+                reader.GetString(4),
+                reader.GetInt32(5).ToString()
             };
 
             Rows.Add(row);
@@ -39,13 +40,13 @@ public static class EmployeeSQL
         return Rows;
     }
 
-    public static void Create(int JobTitle_id, string email, string fullname, string password)
+    public static void Create(int JobTitle_id, string email, string fullname, string password, int rate)
     {
         var connection = DB_connector.GetConnection();
 
         String tmp_comm = 
-            "INSERT `Employee` (`Job_title_id`, `Email`, `Full_name`, `Password`) " +
-            "VALUES ('" + JobTitle_id + "', '" + email + "', '" + fullname + "', '" + password + "');";
+            "INSERT `Employee` (`Job_title_id`, `Email`, `Full_name`, `Password`, `Rate`) " +
+            "VALUES ('" + JobTitle_id + "', '" + email + "', '" + fullname + "', '" + password + "', '" + rate + "');";
 
         var command = new MySqlCommand(tmp_comm, connection);
 
@@ -54,7 +55,7 @@ public static class EmployeeSQL
         connection?.Close(); 
     }
 
-    public static void Update(int id, int JobTitle_id, string email, string fullname, string password)
+    public static void Update(int id, int JobTitle_id, string email, string fullname, string password, int rate)
     {
         var connection = DB_connector.GetConnection();
 
@@ -63,7 +64,8 @@ public static class EmployeeSQL
             "`Job_title_id` = '" + JobTitle_id + "', " +
             "`Email` = '" + email + "', " +
             "`Full_name` = '" + fullname + "', " +
-            "`Password` = '" + password + "' " +
+            "`Password` = '" + password + "', " +
+            "`Rate` = '" + rate + "' " +
             "WHERE (`Employee_id` = '" + id + "');";
 
         var command = new MySqlCommand(tmp_comm, connection);
@@ -73,7 +75,7 @@ public static class EmployeeSQL
         connection?.Close(); 
     }
 
-    public static void UpdateWithoutPassword(int id, int JobTitle_id, string email, string fullname)
+    public static void UpdateWithoutPassword(int id, int JobTitle_id, string email, string fullname, int rate)
     {
         var connection = DB_connector.GetConnection();
 
@@ -81,7 +83,8 @@ public static class EmployeeSQL
             "UPDATE `Employee` SET " +
             "`Job_title_id` = '" + JobTitle_id + "', " +
             "`Email` = '" + email + "', " +
-            "`Full_name` = '" + fullname + "' " +
+            "`Full_name` = '" + fullname + "', " +
+            "`Rate` = '" + rate + "' " +
             "WHERE (`Employee_id` = '" + id + "');";
 
         var command = new MySqlCommand(tmp_comm, connection);
@@ -106,11 +109,11 @@ public static class EmployeeSQL
 
     public static string[] GetParamsById(int id)
     {
-        string[] atributes = new string[3];
+        string[] atributes = new string[4];
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT `Job_title_id`, `Email`, `Full_name` FROM `Employee` WHERE `Employee_id` = '" + id + "' limit 1;";
+        string tmp_comm = "SELECT `Job_title_id`, `Email`, `Full_name`, `Rate` FROM `Employee` WHERE `Employee_id` = '" + id + "' limit 1;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();
@@ -121,6 +124,7 @@ public static class EmployeeSQL
             atributes[0] = reader.GetInt32(0).ToString();
             atributes[1] = reader.GetString(1);
             atributes[2] = reader.GetString(2);
+            atributes[3] = reader.GetInt32(3).ToString();
         }
 
         connection?.Close(); 

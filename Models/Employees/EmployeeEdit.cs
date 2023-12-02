@@ -23,15 +23,15 @@ public class EmployeeEditModel : PageModel
         JobTitles = EmployeeSQL.GetJobTitles();
     }
 
-    public RedirectResult OnPostAccept(int id, int jobTitle_id, string email, string fullname, string password)
+    public RedirectResult OnPostAccept(int id, int jobTitle_id, string email, string fullname, string password, int rate)
     {
         if (password != null)
         {
-            EmployeeSQL.Update(id, jobTitle_id, email, fullname, HashClass.Hash(password));
+            EmployeeSQL.Update(id, jobTitle_id, email, fullname, HashClass.Hash(password), rate);
         }
         else
         {
-            EmployeeSQL.UpdateWithoutPassword(id, jobTitle_id, email, fullname);
+            EmployeeSQL.UpdateWithoutPassword(id, jobTitle_id, email, fullname, rate);
         }
 
         return Redirect("/Employees");
