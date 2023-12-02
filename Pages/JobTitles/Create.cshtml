@@ -1,0 +1,36 @@
+@page
+@model sql_web_app.Models.JobTitle.JobTitleCreateModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+<form method="post">
+	<div class="container-fluid">
+        <div class="col-6 mx-auto">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Добавить новую должность</h3>
+                </div>
+
+            <!-- card-body /. -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="title">Наименование должности</label>
+                        <input required type="text" name="title" class="form-control" id="title" placeholder="Введите наименование должности">
+                    </div>
+                    <div class="form-group">
+                        <label for="accessLevel">Уровень доступа</label>
+                        <input required type="number" name="accessLevel" class="form-control" id="accessLevel" placeholder="Введите уровень доступа">
+                    </div>
+                    <div id="errorBlock"></div>
+                </div>
+            <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

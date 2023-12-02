@@ -1,0 +1,41 @@
+@page "{id}"
+@model sql_web_app.Models.JobTitle.JobTitleEditModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+<div class="container-fluid">
+    <div class="col-6 mx-auto">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Изменить должность</h3>
+            </div>
+            <form method="post">
+
+            <!-- card-body /. -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="title">Наименование должности</label>
+                        <input required type="text" name="title" class="form-control" id="title" placeholder="Введите наименование должности" value="@Model.Atributes[0]">
+                    </div>
+                    <div class="form-group">
+                        <label for="accessLevel">Уровень доступа</label>
+                        <input required type="number" name="accessLevel" class="form-control" id="accessLevel" placeholder="Введите уровень доступа" value="@Model.Atributes[1]">
+                    </div>
+                    <div id="errorBlock"></div>
+                </div>
+            <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" asp-page-handler="Accept" class="btn btn-primary">Принять</button>
+                </div>
+            </form>
+            <form method="post">
+                <div class="card-footer">
+                    <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Удалить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
