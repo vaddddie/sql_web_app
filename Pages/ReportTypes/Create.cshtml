@@ -1,0 +1,32 @@
+@page
+@model sql_web_app.Models.ReportTypes.ReportTypeCreateModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+<form method="post">
+	<div class="container-fluid">
+        <div class="col-6 mx-auto">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Добавить новый тип проблемы</h3>
+                </div>
+
+            <!-- card-body /. -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="title">Наименование проблемы</label>
+                        <input required type="text" name="title" class="form-control" id="title" placeholder="Введите наименование проблемы">
+                    </div>
+                    <div id="errorBlock"></div>
+                </div>
+            <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

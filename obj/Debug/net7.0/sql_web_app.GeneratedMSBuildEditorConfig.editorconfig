@@ -72,6 +72,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvT3JkZXJzL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/whatislove/main/projects/dotnet/sql_web_app/Pages/ReportTypes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVwb3J0VHlwZXMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/whatislove/main/projects/dotnet/sql_web_app/Pages/ReportTypes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVwb3J0VHlwZXMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/whatislove/main/projects/dotnet/sql_web_app/Pages/ReportTypes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVwb3J0VHlwZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/whatislove/main/projects/dotnet/sql_web_app/Pages/Servers/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2VydmVycy9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
