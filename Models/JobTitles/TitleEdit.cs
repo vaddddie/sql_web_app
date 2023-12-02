@@ -4,7 +4,7 @@ using sql_web_app.Scripts;
 using sql_web_app.Scripts.Tables;
 
 
-namespace sql_web_app.Models.JobTitle;
+namespace sql_web_app.Models.JobTitles;
 
 public class JobTitleEditModel : PageModel
 {

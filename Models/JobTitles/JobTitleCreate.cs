@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using sql_web_app.Scripts.Tables;
 using sql_web_app.Scripts;
 
-namespace sql_web_app.Models.JobTitle;
+namespace sql_web_app.Models.JobTitles;
 
 public class JobTitleCreateModel : PageModel
 {
