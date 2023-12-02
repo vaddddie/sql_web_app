@@ -1,0 +1,105 @@
+@page "{id}"
+@model sql_web_app.Models.Reports.ReportEditModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+
+<div class="container-fluid">
+    <div class="col-6 mx-auto">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Изменить параметры проблемы</h3>
+            </div>
+            <form method="post">
+
+        <!-- card-body /. -->
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Клиент</label>
+                    <select required class="custom-select" name="client_id">
+                        @foreach (int idx in Model.Clients.Keys)
+                        {
+                            @if (idx.ToString().Equals(Model.Atributes[0]))
+                            {
+                                <option selected value="@idx">@Model.Clients[idx]</option>
+                            }
+                            else 
+                            {
+                                <option value="@idx">@Model.Clients[idx]</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Тип проблемы</label>
+                    <select required class="custom-select" name="reportType_id">
+                        @foreach (int idx in Model.ReportTypes.Keys)
+                        {
+                            @if (idx.ToString().Equals(Model.Atributes[1]))
+                            {
+                                <option selected value="@idx">@Model.ReportTypes[idx]</option>
+                            }
+                            else 
+                            {
+                                <option value="@idx">@Model.ReportTypes[idx]</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Сотрудник</label>
+                    <select required class="custom-select" name="employee_id">
+                        @foreach (int idx in Model.Employees.Keys)
+                        {
+                            @if (idx.ToString().Equals(Model.Atributes[2]))
+                            {
+                                <option selected value="@idx">@Model.Employees[idx]</option>
+                            }
+                            else 
+                            {
+                                <option value="@idx">@Model.Employees[idx]</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="custom-control custom-radio">
+                        @if (@Model.Atributes[3].Equals("0"))
+                        {
+                            <input class="custom-control-input" type="radio" id="Radio1" name="status" value="0" checked>
+                        }
+                        else
+                        {
+                            <input class="custom-control-input" type="radio" id="Radio1" name="status" value="0">
+                        }
+                        <label for="Radio1" class="custom-control-label">В процессе решения</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        @if (!@Model.Atributes[3].Equals("0"))
+                        {
+                            <input class="custom-control-input" type="radio" id="Radio2" name="status" value="1" checked>
+                        }
+                        else
+                        {
+                            <input class="custom-control-input" type="radio" id="Radio2" name="status" value="1">
+                        }
+                        <label for="Radio2" class="custom-control-label">Решено</label>
+                    </div>
+                </div>
+            </div>
+        <!-- /.card-body -->
+            
+            <div class="card-footer">
+                <button type="submit" asp-page-handler="Accept" class="btn btn-primary">Принять</button>
+            </div>
+            </form>
+            <form method="post">
+                <div class="card-footer">
+                    <button type="submit" asp-page-handler="Delete" class="btn btn-danger">Удалить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

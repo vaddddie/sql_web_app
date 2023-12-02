@@ -1,0 +1,67 @@
+@page
+@model sql_web_app.Models.Reports.ReportCreateModel
+@{
+    ViewData["Title"] = "Панель управления";
+    ViewData["Subtitle"] = "";
+}
+
+<form method="post">
+	<div class="container-fluid">
+        <div class="col-6 mx-auto">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Добавить новую проблему</h3>
+                </div>
+
+            <!-- card-body /. -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Клиент</label>
+                        <select required class="custom-select" name="client_id">
+                            <option selected disabled hidden value="">Выберете клиента</option>
+                            @foreach (int idx in Model.Clients.Keys)
+                            {
+                                <option value="@idx">@Model.Clients[idx]</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Тип проблемы</label>
+                        <select required class="custom-select" name="reportType_id">
+                            <option selected disabled hidden value="">Выберете тип пробемы</option>
+                            @foreach (int idx in Model.ReportTypes.Keys)
+                            {
+                                <option value="@idx">@Model.ReportTypes[idx]</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Сотрудник</label>
+                        <select required class="custom-select" name="employee_id">
+                            <option selected disabled hidden value="">Выберете сотрудника</option>
+                            @foreach (int idx in Model.Employees.Keys)
+                            {
+                                <option value="@idx">@Model.Employees[idx]</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" id="Radio1" name="status" value="0" checked>
+                            <label for="Radio1" class="custom-control-label">В процессе решения</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" id="Radio2" name="status" value="1">
+                            <label for="Radio2" class="custom-control-label">Решено</label>
+                        </div>
+                    </div>
+                </div>
+            <!-- /.card-body -->
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
