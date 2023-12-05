@@ -12,7 +12,7 @@ public static class VirtualStorageSQL
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT * FROM Virtual_storage;";
+        string tmp_comm = "SELECT * FROM `Virtual_storage`;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();
@@ -56,7 +56,7 @@ public static class VirtualStorageSQL
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT FTP_user, FTP_password FROM Virtual_storage WHERE Client_id = " + id + " limit 1;";
+        string tmp_comm = "SELECT `FTP_user`, `FTP_password` FROM `Virtual_storage` WHERE `Client_id` = '" + id + "' limit 1;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();

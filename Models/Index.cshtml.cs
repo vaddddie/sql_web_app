@@ -8,8 +8,11 @@ namespace sql_web_app.Models;
 
 public class IndexModel : PageModel
 {
-    public required int ClientCount;
     public required int OrderCount;
+    public required int ClientCount;
+    public required int EmployeeCount;
+    public required int UnsolvedReportCount;
+
     private readonly ILogger<IndexModel> _logger;
 
     public IndexModel(ILogger<IndexModel> logger)
@@ -19,7 +22,9 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
-        ClientCount = ClientSQL.Count();
         OrderCount = OrderSQL.Count();
+        ClientCount = ClientSQL.Count();
+        EmployeeCount = EmployeeSQL.Count();
+        UnsolvedReportCount = ReportSQL.CountUnsolved();
     }
 }

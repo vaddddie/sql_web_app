@@ -13,7 +13,7 @@ public static class JobTitleSQL
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT * FROM Job_title;";
+        string tmp_comm = "SELECT * FROM `Job_title`;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();
@@ -86,7 +86,7 @@ public static class JobTitleSQL
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT Title, Access_level FROM `Job_title` WHERE `Job_title_id` = '" + id + "' limit 1;";
+        string tmp_comm = "SELECT `Title`, `Access_level` FROM `Job_title` WHERE `Job_title_id` = '" + id + "' limit 1;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();

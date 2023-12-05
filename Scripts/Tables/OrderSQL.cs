@@ -90,7 +90,7 @@ public static class OrderSQL
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT Client_id, Tariff_id, Datetime FROM `Order` WHERE Order_id = " + id + " limit 1;";
+        string tmp_comm = "SELECT `Client_id`, `Tariff_id`, `Datetime` FROM `Order` WHERE `Order_id` = '" + id + "' limit 1;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();
@@ -114,7 +114,7 @@ public static class OrderSQL
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT Client_id, Email FROM Client;";
+        string tmp_comm = "SELECT `Client_id`, `Email` FROM `Client`;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();
@@ -136,7 +136,7 @@ public static class OrderSQL
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT * FROM Tariff;";
+        string tmp_comm = "SELECT * FROM `Tariff`;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();

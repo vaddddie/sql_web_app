@@ -13,9 +13,9 @@ public static class ClientSQL
         var connection = DB_connector.GetConnection();
 
         string tmp_comm = 
-        "SELECT Client_id, Email, Full_name, Password, s.Location " + 
-        "FROM Client AS c, Server AS s " +
-        "WHERE c.Location = Server_id;";
+        "SELECT `Client_id`, `Email`, `Full_name`, `Password`, s.`Location` " + 
+        "FROM `Client` AS c, `Server` AS s " +
+        "WHERE c.`Location` = `Server_id`;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();
@@ -44,7 +44,7 @@ public static class ClientSQL
         var connection = DB_connector.GetConnection();
 
         String tmp_comm = 
-            "INSERT Client (`Email`, `Full_name`, `Password`, `Location`) " +
+            "INSERT `Client` (`Email`, `Full_name`, `Password`, `Location`) " +
             "VALUES ('" + email + "', '" + fullname + "', '" + password + "', '" + location + "');";
 
         var command = new MySqlCommand(tmp_comm, connection);
@@ -110,7 +110,7 @@ public static class ClientSQL
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT Email, Full_name, Location FROM Client WHERE Client_id = " + id + " limit 1;";
+        string tmp_comm = "SELECT `Email`, `Full_name`, `Location` FROM `Client` WHERE `Client_id` = '" + id + "' limit 1;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();
@@ -134,7 +134,7 @@ public static class ClientSQL
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT Server_id, Location FROM Server;";
+        string tmp_comm = "SELECT `Server_id`, `Location` FROM `Server`;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();

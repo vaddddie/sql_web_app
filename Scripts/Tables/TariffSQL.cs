@@ -86,7 +86,7 @@ public static class TariffSQL
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT Storage_memory, Price_at_month FROM `Tariff` WHERE Tariff_id = " + id + " limit 1;";
+        string tmp_comm = "SELECT `Storage_memory`, `Price_at_month` FROM `Tariff` WHERE `Tariff_id` = '" + id + "' limit 1;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();

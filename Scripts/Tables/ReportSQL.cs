@@ -94,7 +94,7 @@ public static class ReportSQL
 
         var connection = DB_connector.GetConnection();
 
-        string tmp_comm = "SELECT `Client_id`, `Report_type_id`, `Employee_id`, `Status` FROM `Report` WHERE `Report_id` = " + id + " limit 1;";
+        string tmp_comm = "SELECT `Client_id`, `Report_type_id`, `Employee_id`, `Status` FROM `Report` WHERE `Report_id` = '" + id + "' limit 1;";
         var command = new MySqlCommand(tmp_comm, connection);
 
         connection?.Open();
@@ -177,5 +177,27 @@ public static class ReportSQL
         connection?.Close(); 
 
         return employees;
+    }
+
+    public static int CountUnsolved()
+    {
+        int count = 0;
+
+        var connection = DB_connector.GetConnection();
+
+        string tmp_comm = "SELECT COUNT(*) AS `count` FROM `Report` WHERE `Status` = '0';";
+        var command = new MySqlCommand(tmp_comm, connection);
+
+        connection?.Open();
+
+        using var reader = command.ExecuteReader();
+        if (reader.Read())
+        {
+            count = reader.GetInt32(0);
+        }
+
+        connection?.Close(); 
+
+        return count;
     }
 }
