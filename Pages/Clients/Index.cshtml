@@ -17,15 +17,15 @@
                 </div>
                 <div class="card-body">
                     <table id="example2" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Номер</th>
-                            <th>Email</th>
-                            <th>Полное имя</th>
-                            <th>Пароль</th>
-                            <th>Местоположение</th>
-                            <th>Редактировать</th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Email</th>
+                                <th>Полное имя</th>
+                                <th>Пароль</th>
+                                <th>Местоположение</th>
+                                <th>Редактировать</th>
+                            </tr>
                         </thead>
                         <tbody>
                             @foreach (string[] item in Model.Rows)
@@ -37,7 +37,7 @@
                                 <td>@item[3]</td>
                                 <td>@item[4]</td>
                                 <td>
-                                    <a href="/Clients/Edit/@item[0]"><i class="fas fa-edit"></i></a>
+                                    <a href="/Clients/Edit/@item[0]"><button type="button" class="btn btn-block btn-default"><i class="fas fa-edit"></i></button></a>
                                     <!--<button type="button" class="btn btn-block btn-default"><i class="fas fa-edit"></i></button>-->
                                 </td>
                             </tr>
