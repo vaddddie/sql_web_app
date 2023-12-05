@@ -131,12 +131,13 @@
             var donutData = {
                 labels: [
                     'Клиенты',
+                    'Сотрудники',
                     'Заказы',
                 ],
                 datasets: [
                     {
-                        data: [@Model.ClientCount, @Model.OrderCount],
-                        backgroundColor : ['#f56954', '#00a65a'],
+                        data: [@Model.ClientCount, @Model.EmployeeCount, @Model.OrderCount],
+                        backgroundColor : ['#f56954', '#00a65a', '#f39c12'],
                     }
                 ]
             }
