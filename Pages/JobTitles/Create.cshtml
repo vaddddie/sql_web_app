@@ -5,7 +5,7 @@
     ViewData["Subtitle"] = "";
 }
 
-<form method="post">
+<form method="post" id="my-form">
 	<div class="container-fluid">
         <div class="col-6 mx-auto">
             <div class="card card-primary">
@@ -17,13 +17,13 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="title">Наименование должности</label>
-                        <input required type="text" name="title" class="form-control" id="title" placeholder="Введите наименование должности">
+                        <input required type="text" name="title" class="form-control" id="title" placeholder="Введите наименование должности" maxlength="20">
+                        <div id="titleErrorBlock" class="error"></div>
                     </div>
                     <div class="form-group">
                         <label for="accessLevel">Уровень доступа</label>
-                        <input required type="number" name="accessLevel" class="form-control" id="accessLevel" placeholder="Введите уровень доступа">
+                        <input required type="number" name="accessLevel" class="form-control" id="accessLevel" placeholder="Введите уровень доступа" min="0" max="99">
                     </div>
-                    <div id="errorBlock"></div>
                 </div>
             <!-- /.card-body -->
 
@@ -34,3 +34,33 @@
         </div>
     </div>
 </form>
+
+@section scripts {
+    <script>
+        const form = document.querySelector('#my-form');
+        const titleInput = form.querySelector('#title');
+
+        form.addEventListener('submit', (evt) => {
+            
+            // Получаем значения полей формы
+            const title = titleInput.value;
+
+            if (isValidTitle(title)) {
+                $("#title").removeClass('errorBorder');
+                $('#titleErrorBlock').html('');
+            }          
+
+            if (!isValidTitle(title)) {
+                $("#title").addClass('errorBorder');
+                $('#titleErrorBlock').html('Наименование должности может содержать только буквы, цифры, пробелы, знаки \"-\", \"_\", \"()\", \"№\" и \"#\"');
+                evt.preventDefault();
+            }
+        });
+
+        function isValidTitle(title) {
+            // Проверка имени регулярным выражением
+            const pattern = /^[a-zA-ZА-Яа-я0-9\s-_№#()]{0,20}$/;
+            return pattern.test(title);
+        }        
+    </script>
+}

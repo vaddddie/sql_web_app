@@ -5,7 +5,7 @@
     ViewData["Subtitle"] = "";
 }
 
-<form method="post">
+<form method="post" id="my-form">
 	<div class="container-fluid">
         <div class="col-6 mx-auto">
             <div class="card card-primary">
@@ -27,21 +27,23 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Почта</label>
-                        <input required type="email" name="email" class="form-control" id="email" placeholder="Введите почту">
+                        <input required type="email" name="email" class="form-control" id="email" placeholder="Введите почту" maxlength="60">
+                        <div id="emailErrorBlock" class="error"></div>
                     </div>
                     <div class="form-group">
                         <label for="fullname">Полное имя</label>
-                        <input required type="text" name="fullname" class="form-control" id="fullname" placeholder="Введите полное имя">
+                        <input required type="text" name="fullname" class="form-control" id="fullname" placeholder="Введите полное имя" minlength="3" maxlength="40">
+                        <div id="fullnameErrorBlock" class="error"></div>
                     </div>
                     <div class="form-group">
                         <label for="password">Пароль</label>
-                        <input required type="text" name="password" class="form-control" id="password" placeholder="Введите пароль">
+                        <input required type="password" name="password" class="form-control" id="password" placeholder="Введите пароль" minlength="8" maxlength="20">
+                        <div id="passwordErrorBlock" class="error"></div>
                     </div>
                     <div class="form-group">
                         <label for="rate">Рейтинг</label>
-                        <input required type="number" name="rate" class="form-control" id="rate" placeholder="Введите рейтинг сотрудника">
+                        <input required type="number" name="rate" class="form-control" id="rate" placeholder="Введите рейтинг сотрудника" min="-10000" max="10000">
                     </div>
-                    <div id="errorBlock"></div>
                 </div>
             <!-- /.card-body -->
 
@@ -52,3 +54,71 @@
         </div>
     </div>
 </form>
+
+@section scripts {
+    <script>
+        const form = document.querySelector('#my-form');
+        const emailInput = form.querySelector('#email');
+        const loginInput = form.querySelector('#fullname');
+        const passwordInput = form.querySelector('#password');
+
+        form.addEventListener('submit', (evt) => {
+            
+            // Получаем значения полей формы
+            const email = emailInput.value;
+            const login = loginInput.value;
+            const password = passwordInput.value;
+            
+            if (isValidEmail(email)) {
+                $("#email").removeClass('errorBorder');
+                $('#emailErrorBlock').html(''); 
+            }
+
+            if (isValidLogin(login)) {
+                $("#fullname").removeClass('errorBorder');
+                $('#loginErrorBlock').html('');
+            }
+
+            if (isValidPassword(password)) {
+                $("#password").removeClass('errorBorder');
+                $('#passwordErrorBlock').html(''); 
+            }            
+
+            if (!isValidEmail(email)) {
+                $("#email").addClass('errorBorder');
+                $('#emailErrorBlock').html('Введите корректный адрес электронной почты');
+                evt.preventDefault();
+            }
+
+            if (!isValidLogin(login)) {
+                $("#fullname").addClass('errorBorder');
+                $('#fullnameErrorBlock').html('Полное имя может содержать только буквы и пробелы');
+                evt.preventDefault();
+            }
+            
+            if (!isValidPassword(password)) {
+                $("#password").addClass('errorBorder');
+                $('#passwordErrorBlock').html('Пароль может содерать только цифры, латинские буквы, знаки \"-\" и \"_\"');
+                evt.preventDefault();       
+            }
+        });
+
+        function isValidEmail(email) {
+            // Проверка имени регулярным выражением
+            const pattern = /^[A-Z0-9._%+-]+@@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
+            return pattern.test(email);
+        }        
+
+        function isValidLogin(login) {
+            // Проверка имени регулярным выражением
+            const pattern = /^[a-zA-ZА-Яа-я\s]{3,40}$/;
+            return pattern.test(login);
+        }
+
+        function isValidPassword(password) {
+            // Проверка пароля регулярным выражением
+            const pattern = /^[a-zA-Z0-9_-]{8,20}$/;
+            return pattern.test(password);
+        }
+    </script>
+}

@@ -12,45 +12,48 @@
             <div class="card-header">
                 <h3 class="card-title">Изменить параметры клиента</h3>
             </div>
-            <form method="post">
+            <form method="post" id="my-form">
 
-        <!-- card-body /. -->
-            <div class="card-body">
-                <div class="form-group">
-                    <label for="email">Почта</label>
-                    <input required type="email" name="email" class="form-control" id="email" placeholder="Введите почту" value="@Model.Atributes[0]">
-                </div>
-                <div class="form-group">
-                    <label for="fullname">Полное имя</label>
-                    <input required type="text" name="fullname" class="form-control" id="fullname" placeholder="Введите полное имя" value="@Model.Atributes[1]">
-                </div>
-                <div class="form-group">
-                    <label for="password">Новый пароль</label>
-                    <input type="text" name="password" class="form-control" id="password" placeholder="Оставить старый пароль">
-                </div>
-                <div id="errorBlock"></div>
-                <div class="form-group">
-                    <label>Местоположение</label>
-                    <select required class="custom-select" name="location_id">
-                        @foreach (int idx in Model.Locations.Keys)
-                        {
-                            @if (idx.ToString().Equals(Model.Atributes[2]))
+            <!-- card-body /. -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="email">Почта</label>
+                        <input required type="email" name="email" class="form-control" id="email" placeholder="Введите почту" value="@Model.Atributes[0]" maxlength="60"> 
+                        <div id="emailErrorBlock" class="error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fullname">Полное имя</label>
+                        <input required type="text" name="fullname" class="form-control" id="fullname" placeholder="Введите полное имя" value="@Model.Atributes[1]" minlength="3" maxlength="40">
+                        <div id="loginErrorBlock" class="error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Новый пароль</label>
+                        <input type="text" name="password" class="form-control" id="password" placeholder="Оставить старый пароль" minlength="8" maxlength="20">
+                        <div id="passwordErrorBlock" class="error"></div>
+                    </div>
+                    <div id="errorBlock"></div>
+                    <div class="form-group">
+                        <label>Местоположение</label>
+                        <select required class="custom-select" name="location_id">
+                            @foreach (int idx in Model.Locations.Keys)
                             {
-                                <option selected value="@idx">@Model.Locations[idx]</option>
+                                @if (idx.ToString().Equals(Model.Atributes[2]))
+                                {
+                                    <option selected value="@idx">@Model.Locations[idx]</option>
+                                }
+                                else 
+                                {
+                                    <option value="@idx">@Model.Locations[idx]</option>
+                                }
                             }
-                            else 
-                            {
-                                <option value="@idx">@Model.Locations[idx]</option>
-                            }
-                        }
-                    </select>
+                        </select>
+                    </div>
                 </div>
-            </div>
-        <!-- /.card-body -->
-            
-            <div class="card-footer">
-                <button type="submit" asp-page-handler="Accept" class="btn btn-primary">Принять</button>
-            </div>
+            <!-- /.card-body -->
+                
+                <div class="card-footer">
+                    <button type="submit" asp-page-handler="Accept" class="btn btn-primary">Принять</button>
+                </div>
             </form>
             <form method="post">
                 <div class="card-footer">
@@ -60,3 +63,72 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script>
+        const form = document.querySelector('#my-form');
+        const emailInput = form.querySelector('#email');
+        const loginInput = form.querySelector('#fullname');
+        const passwordInput = form.querySelector('#password');
+
+        form.addEventListener('submit', (evt) => {
+            // Отменяем действие по умолчанию
+            
+            // Получаем значения полей формы
+            const email = emailInput.value;
+            const login = loginInput.value;
+            const password = passwordInput.value;
+            
+            if (isValidEmail(email)) {
+                $("#email").removeClass('errorBorder');
+                $('#emailErrorBlock').html(''); 
+            }
+
+            if (isValidLogin(login)) {
+                $("#fullname").removeClass('errorBorder');
+                $('#loginErrorBlock').html('');
+            }
+
+            if (isValidPassword(password) | password == "") {
+                $("#password").removeClass('errorBorder');
+                $('#passwordErrorBlock').html(''); 
+            }            
+
+            if (!isValidEmail(email)) {
+                $("#email").addClass('errorBorder');
+                $('#emailErrorBlock').html('Введите корректный адрес электронной почты');
+                evt.preventDefault();
+            }
+
+            if (!isValidLogin(login)) {
+                $("#fullname").addClass('errorBorder');
+                $('#loginErrorBlock').html('Полное имя может содержать только буквы и пробелы');
+                evt.preventDefault();
+            }
+            
+            if (!isValidPassword(password) & password != "") {
+                $("#password").addClass('errorBorder');
+                $('#passwordErrorBlock').html('Пароль может содерать только цифры, латинские буквы, знаки \"-\" и \"_\"');
+                evt.preventDefault();        
+            }
+        });
+
+        function isValidEmail(email) {
+            // Проверка имени регулярным выражением
+            const pattern = /^[A-Z0-9._%+-]+@@[A-Z0-9-]+.+.[A-Z]{2,4}$/i;
+            return pattern.test(email);
+        }        
+
+        function isValidLogin(login) {
+            // Проверка имени регулярным выражением
+            const pattern = /^[a-zA-ZА-Яа-я\s]{3,40}$/;
+            return pattern.test(login);
+        }
+
+        function isValidPassword(password) {
+            // Проверка пароля регулярным выражением
+            const pattern = /^[a-zA-Z0-9_-]{8,20}$/;
+            return pattern.test(password);
+        }
+    </script>
+}

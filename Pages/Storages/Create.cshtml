@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-group">
                         <label for="memory">Размер хранилища</label>
-                        <input required type="number" name="memory" class="form-control" id="memory" placeholder="Введите размер хранилища">
+                        <input required type="number" name="memory" class="form-control" id="memory" placeholder="Введите размер хранилища" min="0" max="999999">
                     </div>
                     <div class="form-group">
                         <label>Местоположение сервера</label>
@@ -44,7 +44,6 @@
                         <label for="endDatetime">Дата и время окончания действия</label>
                         <input required type="datetime-local" name="endDatetime" class="form-control" id="endDatetime">
                     </div>
-                    <div id="errorBlock"></div>
                 </div>
             <!-- /.card-body -->
 

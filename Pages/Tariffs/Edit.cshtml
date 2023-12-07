@@ -17,13 +17,12 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="memory">Выделяемая память</label>
-                        <input required type="number" name="memory" class="form-control" id="memory" value="@Model.Atributes[0]">
+                        <input required type="number" name="memory" class="form-control" id="memory" value="@Model.Atributes[0]" min="0" max="999999">
                     </div>
                     <div class="form-group">
                         <label for="price">Цена в месяц</label>
-                        <input required type="number" step="0.01" name="price" class="form-control" id="price" value="@Model.Atributes[1]">
+                        <input required type="number" step="0.01" name="price" class="form-control" id="price" value="@Model.Atributes[1]" min="0" max="999999">
                     </div>
-                    <div id="errorBlock"></div>
                 </div>
             <!-- /.card-body -->
 

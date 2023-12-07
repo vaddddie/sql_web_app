@@ -5,7 +5,7 @@
     ViewData["Subtitle"] = "";
 }
 
-<form method="post">
+<form method="post" id="my-form">
 	<div class="container-fluid">
         <div class="col-6 mx-auto">
             <div class="card card-primary">
@@ -18,11 +18,12 @@
                 <!-- select -->
                     <div class="form-group">
                         <label for="location">Местоположение</label>
-                        <input required type="text" name="location" class="form-control" id="location" placeholder="Введите местоположение">
+                        <input required type="text" name="location" class="form-control" id="location" placeholder="Введите местоположение" maxlength="20">
+                        <div id="locationErrorBlock" class="error"></div>
                     </div>
                     <div class="form-group">
                         <label for="memory">Размер хранилища</label>
-                        <input required type="number" name="memory" class="form-control" id="memory" placeholder="Введите размер хранилища">
+                        <input required type="number" name="memory" class="form-control" id="memory" placeholder="Введите размер хранилища" min="0" max="999999">
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-radio">
@@ -34,7 +35,6 @@
                             <label for="Radio2" class="custom-control-label">Офлайн</label>
                         </div>
                     </div>
-                    <div id="errorBlock"></div>
                 </div>
             <!-- /.card-body -->
 
@@ -45,3 +45,33 @@
         </div>
     </div>
 </form>
+
+@section scripts {
+    <script>
+        const form = document.querySelector('#my-form');
+        const locationInput = form.querySelector('#location');
+
+        form.addEventListener('submit', (evt) => {
+            
+            // Получаем значения полей формы
+            const location = locationInput.value;
+
+            if (isValidLocation(location)) {
+                $("#location").removeClass('errorBorder');
+                $('#locationErrorBlock').html('');
+            }          
+
+            if (!isValidLocation(location)) {
+                $("#location").addClass('errorBorder');
+                $('#locationErrorBlock').html('Местоположение может содержать только буквы, цифры, пробелы, знаки \"-\", \"_\", \"()\", \"№\" и \"#\"');
+                evt.preventDefault();
+            }
+        });
+
+        function isValidLocation(location) {
+            // Проверка имени регулярным выражением
+            const pattern = /^[a-zA-ZА-Яа-я0-9\s-_№#()]{0,20}$/;
+            return pattern.test(location);
+        }        
+    </script>
+}

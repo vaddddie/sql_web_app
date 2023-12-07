@@ -11,15 +11,15 @@
             <div class="card-header">
                 <h3 class="card-title">Изменить тип проблемы</h3>
             </div>
-            <form method="post">
+            <form method="post" id="my-form">
 
             <!-- card-body /. -->
                 <div class="card-body">
                     <div class="form-group">
                         <label for="title">Наименование проблемы</label>
-                        <input required type="text" name="title" class="form-control" id="title" placeholder="Введите наименование проблемы" value="@Model.Atributes[0]">
+                        <input required type="text" name="title" class="form-control" id="title" placeholder="Введите наименование проблемы" value="@Model.Atributes[0]" maxlength="50">
+                        <div id="titleErrorBlock" class="error"></div>
                     </div>
-                    <div id="errorBlock"></div>
                 </div>
             <!-- /.card-body -->
 
@@ -35,3 +35,33 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script>
+        const form = document.querySelector('#my-form');
+        const titleInput = form.querySelector('#title');
+
+        form.addEventListener('submit', (evt) => {
+            
+            // Получаем значения полей формы
+            const title = titleInput.value;
+
+            if (isValidTitle(title)) {
+                $("#title").removeClass('errorBorder');
+                $('#titleErrorBlock').html('');
+            }          
+
+            if (!isValidTitle(title)) {
+                $("#title").addClass('errorBorder');
+                $('#titleErrorBlock').html('Наименование проблемы может содержать только буквы, цифры, пробелы, знаки \"-\", \"_\", \"()\", \"№\" и \"#\"');
+                evt.preventDefault();
+            }
+        });
+
+        function isValidTitle(title) {
+            // Проверка имени регулярным выражением
+            const pattern = /^[a-zA-ZА-Яа-я0-9\s-_№#()]{0,50}$/;
+            return pattern.test(title);
+        }        
+    </script>
+}
