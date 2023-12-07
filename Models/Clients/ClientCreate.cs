@@ -8,6 +8,7 @@ namespace sql_web_app.Models.Clients;
 public class ClientCreateModel : PageModel
 {
     public required Dictionary<int, string> Locations;
+    public required List<string> Emails;
     private readonly ILogger<ClientCreateModel> _logger;
 
     public ClientCreateModel(ILogger<ClientCreateModel> logger)
@@ -18,6 +19,7 @@ public class ClientCreateModel : PageModel
     public void OnGet()
     {
         Locations = ClientSQL.GetLocations();
+        Emails = ClientSQL.GetEmails();
     }
 
     public RedirectResult OnPost(string email, string fullname, string password, int location_id)

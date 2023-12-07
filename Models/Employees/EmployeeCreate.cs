@@ -8,6 +8,7 @@ namespace sql_web_app.Models.Employees;
 public class EmployeeCreateModel : PageModel
 {
     public required Dictionary<int, string> JobTitles;
+    public required List<string> Emails;
     private readonly ILogger<EmployeeCreateModel> _logger;
 
     public EmployeeCreateModel(ILogger<EmployeeCreateModel> logger)
@@ -18,6 +19,7 @@ public class EmployeeCreateModel : PageModel
     public void OnGet()
     {
         JobTitles = EmployeeSQL.GetJobTitles();
+        Emails = EmployeeSQL.GetEmails();
     }
 
     public RedirectResult OnPost(int jobTitle_id, string email, string fullname, string password, int rate)

@@ -8,7 +8,9 @@ namespace sql_web_app.Models.VirtualStorages;
 
 public class VirtualStorageEditModel : PageModel
 {
-    public required string[] atributes;
+    public required string[] Atributes;
+    public required List<string> Usernames;
+
     private readonly ILogger<VirtualStorageEditModel> _logger;
 
     public VirtualStorageEditModel(ILogger<VirtualStorageEditModel> logger)
@@ -18,7 +20,8 @@ public class VirtualStorageEditModel : PageModel
 
     public void OnGet(int id)
     {
-        atributes = VirtualStorageSQL.GetParamsById(id);
+        Atributes = VirtualStorageSQL.GetParamsById(id);
+        Usernames = VirtualStorageSQL.GetUsernames();
     }
 
     public RedirectResult OnPostAccept(int id, string username, string password)

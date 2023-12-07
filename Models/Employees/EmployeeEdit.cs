@@ -10,6 +10,7 @@ public class EmployeeEditModel : PageModel
 {
     public required string[] Atributes;
     public required Dictionary<int, string> JobTitles;
+    public required List<string> Emails;
     private readonly ILogger<EmployeeEditModel> _logger;
 
     public EmployeeEditModel(ILogger<EmployeeEditModel> logger)
@@ -21,6 +22,7 @@ public class EmployeeEditModel : PageModel
     {
         Atributes = EmployeeSQL.GetParamsById(id);
         JobTitles = EmployeeSQL.GetJobTitles();
+        Emails = EmployeeSQL.GetEmails();
     }
 
     public RedirectResult OnPostAccept(int id, int jobTitle_id, string email, string fullname, string password, int rate)

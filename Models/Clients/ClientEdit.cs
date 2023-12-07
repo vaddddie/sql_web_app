@@ -10,6 +10,7 @@ public class ClientEditModel : PageModel
 {
     public required string[] Atributes;
     public required Dictionary<int, string> Locations;
+    public required List<string> Emails;
     private readonly ILogger<ClientEditModel> _logger;
 
     public ClientEditModel(ILogger<ClientEditModel> logger)
@@ -21,6 +22,7 @@ public class ClientEditModel : PageModel
     {
         Atributes = ClientSQL.GetParamsById(id);
         Locations = ClientSQL.GetLocations();
+        Emails = ClientSQL.GetEmails();
     }
 
     public RedirectResult OnPostAccept(int id, string email, string fullname, string password, int location_id)

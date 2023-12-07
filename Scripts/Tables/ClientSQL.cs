@@ -171,4 +171,26 @@ public static class ClientSQL
 
         return count;
     }
+
+    public static List<string> GetEmails()
+    {
+        List<string> emails = new ();
+
+        var connection = DB_connector.GetConnection();
+
+        string tmp_comm = "SELECT `Email` FROM `Client`;";
+        var command = new MySqlCommand(tmp_comm, connection);
+
+        connection?.Open();
+
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            emails.Add(reader.GetString(0));
+        }
+
+        connection?.Close(); 
+
+        return emails;
+    }
 }

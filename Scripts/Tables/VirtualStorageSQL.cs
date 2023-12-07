@@ -72,4 +72,26 @@ public static class VirtualStorageSQL
 
         return atributes;
     }
+
+    public static List<string> GetUsernames()
+    {
+        List<string> usernames = new ();
+
+        var connection = DB_connector.GetConnection();
+
+        string tmp_comm = "SELECT `FTP_user` FROM `Virtual_storage`;";
+        var command = new MySqlCommand(tmp_comm, connection);
+
+        connection?.Open();
+
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            usernames.Add(reader.GetString(0));
+        }
+
+        connection?.Close(); 
+
+        return usernames;
+    }
 }
